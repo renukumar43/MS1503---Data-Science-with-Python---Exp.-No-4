@@ -44,19 +44,137 @@ To visualize the yearly trend of company revenue and expenses from 2017 to 2023 
 import matplotlib.pyplot as plt
 import numpy as np
 
-#Step 1: Create dataset
 
-#Step 2: Plot Revenue and Expenses
+# Customer Data Exploration using Pandas
 
-#Step 3: Add titles, labels, and grid
+import pandas as pd
 
-#Step 4: Add legend
+# Step 1: Create a sample customer dataset
+data = {
+    "Customer_ID": ["C001", "C002", "C003", "C004", "C005",
+                    "C006", "C007", "C008", "C009", "C010"], 
 
-#Step 5: Annotate highest revenue and expense
+  "Customer_Name": ["Arun", "Priya", "Kumar", "Divya", "Rahul",
+                      "Sneha", "Vijay", "Anita", "Karthik", "Meena"],  
 
-#Step 6: Adjust layout and show plot
+   "Region": ["North", "South", "East", "West", "North",
+              "South", "East", "West", "North", "South"],
+
+   "Age": [25, 32, 28, 40, 35, 29, 45, 31, 38, 26],
+
+   "Annual_Income": [50000, 75000, 60000, 90000, 85000,
+                      55000, 70000, 95000, 80000, 65000],
+
+   "Spending_Score": [60, 85, 70, 90, 75, 65, 80, 95, 88, 72],
+
+   "Loyalty_Years": [2, 5, 3, 8, 6, 2, 7, 9, 5, 4]
+}
+
+# Step 2: Convert dictionary into DataFrame
+df = pd.DataFrame(data)  
+
+print("CUSTOMER DATASET")  
+print(df)
+
+# Step 3: Basic exploration
+print("\nDataset Shape:", df.shape)  
+print("\nColumn Names:", df.columns)  
+print("\nDataset Information:")
+df.info()
+
+print("\nDescriptive Statistics:")
+print(df.describe())
+
+# Step 4: Display first and last records
+print("\nFirst 3 Records:")
+print(df.head(3))
+
+print("\nLast 3 Records:")
+print(df.tail(3))
+
+# Step 5: Sort customers by Annual Income
+print("\nCustomers Sorted by Annual Income:")
+print(df.sort_values(by="Annual_Income", ascending=False))
+
+# Step 6: Filter high-income customers
+print("\nHigh Income Customers (Income > 70000):")
+print(df[df["Annual_Income"] > 70000])
+
+# Step 7: Group customers by Region
+print("\nRegional Average Analysis:")
+print(df.groupby("Region")[["Annual_Income",
+                            "Spending_Score"]].mean())
+
+# Step 8: Count customers in each region
+print("\nCustomer Count by Region:")
+print(df["Region"].value_counts())
+
+# Step 9: Identify customer with maximum Spending Score
+top_customer = df.loc[df["Spending_Score"].idxmax()]
+
+print("\nTop Spending Customer:")
+print(top_customer)
+
+# Step 10: Calculate overall averages
+print("\nOverall Average Annual Income:",
+      df["Annual_Income"].mean())
+
+print("Overall Average Spending Score:", 
+      df["Spending_Score"].mean()) 
+
 
 ## Output
+
+<img width="928" height="697" alt="image" src="https://github.com/user-attachments/assets/78504369-b349-4ba4-b47b-d17fd78b0d53" />
+
+
+CUSTOMER DATASET
+
+Dataset Shape: (10, 7)
+
+First 3 Records:
+  Customer_ID Customer_Name Region  Age  Annual_Income
+0        C001          Arun  North   25          50000
+1        C002         Priya  South   32          75000
+2        C003         Kumar   East   28          60000
+
+High Income Customers (Income > 70000):
+
+  Customer_ID Customer_Name  Annual_Income
+1        C002         Priya          75000
+3        C004         Divya          90000
+4        C005         Rahul          85000
+7        C008         Anita          95000
+8        C009       Karthik          80000
+
+Regional Average Analysis:
+      Annual_Income  Spending_Score
+East         65000.00           75.00
+North        71666.67           74.33
+South        65000.00           74.00
+West         92500.00           92.50
+
+Customer Count by Region:
+
+North    3
+South    3
+East     2
+West     2
+
+Top Spending Customer:
+
+Customer_ID       C008
+Customer_Name    Anita
+Region            West
+Age                 31
+Annual_Income    95000
+Spending_Score      95
+Loyalty_Years        9
+
+Overall Average Annual Income: 72500.0
+Overall Average Spending Score: 78.0
+
+
 
 
 ## Result
